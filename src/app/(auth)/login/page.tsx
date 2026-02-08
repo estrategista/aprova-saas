@@ -19,59 +19,46 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const result = await signIn("credentials", { email, password, redirect: false });
-      if (result?.error) {
-        setError("Email ou senha incorretos");
-      } else {
-        router.push("/dashboard");
-        router.refresh();
-      }
-    } catch {
-      setError("Erro ao fazer login");
-    } finally {
-      setLoading(false);
-    }
+      if (result?.error) setError("Email ou senha incorretos");
+      else { router.push("/dashboard"); router.refresh(); }
+    } catch { setError("Erro ao fazer login"); }
+    finally { setLoading(false); }
   }
 
   return (
-    <div className="min-h-screen bg-bg-base flex items-center justify-center px-4">
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="w-full max-w-sm animate-scale-in">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-sm">A</div>
-            <span className="text-lg font-semibold text-text-primary">Aprova.ai</span>
-          </Link>
+        <div className="text-center mb-10">
+          <Link href="/" className="text-lg font-semibold text-white tracking-tight">Aprova.ai</Link>
         </div>
 
-        <div className="border border-border-subtle bg-bg-elevated rounded-xl p-6">
-          <h1 className="text-xl font-semibold text-text-primary mb-1">Entrar</h1>
-          <p className="text-sm text-text-muted mb-6">Acesse sua conta para continuar</p>
+        <div className="border border-surface-light bg-surface rounded-xl p-7">
+          <h1 className="text-2xl font-bold text-white mb-1 tracking-tight">Entrar</h1>
+          <p className="text-sm text-gray mb-7">Continue de onde parou.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-3 rounded-lg">
-                {error}
-              </div>
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-3 rounded-lg">{error}</div>
             )}
-            <div className="space-y-1.5">
-              <label htmlFor="email" className="block text-sm font-medium text-text-secondary">Email</label>
+            <div>
+              <label htmlFor="email" className="block text-sm text-gray-light mb-1.5">Email</label>
               <input id="email" type="email" placeholder="seu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required
-                className="w-full px-3 py-2.5 rounded-lg bg-bg-surface border border-border-default text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                className="w-full px-3 py-2.5 rounded-lg bg-black border border-gray-dark text-white placeholder:text-gray text-sm focus:outline-none focus:border-orange transition-colors" />
             </div>
-            <div className="space-y-1.5">
-              <label htmlFor="password" className="block text-sm font-medium text-text-secondary">Senha</label>
+            <div>
+              <label htmlFor="password" className="block text-sm text-gray-light mb-1.5">Senha</label>
               <input id="password" type="password" placeholder="Sua senha" value={password} onChange={(e) => setPassword(e.target.value)} required
-                className="w-full px-3 py-2.5 rounded-lg bg-bg-surface border border-border-default text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                className="w-full px-3 py-2.5 rounded-lg bg-black border border-gray-dark text-white placeholder:text-gray text-sm focus:outline-none focus:border-orange transition-colors" />
             </div>
             <button type="submit" disabled={loading}
-              className="btn-primary w-full py-2.5 rounded-lg text-sm font-semibold disabled:opacity-50 flex items-center justify-center gap-2">
+              className="btn-primary w-full py-3 rounded-lg text-sm disabled:opacity-50 flex items-center justify-center gap-2">
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {loading ? "Entrando..." : "Entrar"}
             </button>
           </form>
 
-          <p className="text-sm text-text-muted text-center mt-5">
-            Nao tem conta?{" "}
-            <Link href="/register" className="text-accent-hover hover:underline font-medium">Criar conta</Link>
+          <p className="text-sm text-gray text-center mt-6">
+            Nao tem conta? <Link href="/register" className="text-orange hover:text-orange-light transition-colors font-medium">Criar conta</Link>
           </p>
         </div>
       </div>

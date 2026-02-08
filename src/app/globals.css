@@ -1,87 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  /* Background layers */
-  --bg-base: #111111;
-  --bg-elevated: #191919;
-  --bg-surface: #222222;
-  --bg-hover: #2a2a2a;
-
-  /* Borders */
-  --border-subtle: #262626;
-  --border-default: #333333;
-  --border-strong: #444444;
-
-  /* Text */
-  --text-primary: #fafafa;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
-
-  /* Brand */
-  --accent-primary: #7047EB;
-  --accent-primary-hover: #8060F0;
-  --accent-cta: #FF7D52;
-  --accent-cta-hover: #FF9470;
-  --accent-info: #00ACFF;
-  --accent-success: #2DCA72;
-  --accent-warning: #F5A623;
-  --accent-danger: #EF4444;
+  --black: #000000;
+  --black-warm: #0a0a0a;
+  --surface: #141414;
+  --surface-light: #1a1a1a;
+  --gray-dark: #333333;
+  --gray: #666666;
+  --gray-light: #999999;
+  --white: #fafafa;
+  --white-muted: #cccccc;
+  --orange: #FF6B2C;
+  --orange-light: #FF8F5C;
+  --orange-dark: #E85A1E;
+  --orange-glow: rgba(255, 107, 44, 0.15);
 }
 
 body {
-  background: var(--bg-base);
-  color: var(--text-primary);
+  background: var(--black);
+  color: var(--white);
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 @theme inline {
-  --color-bg-base: #111111;
-  --color-bg-elevated: #191919;
-  --color-bg-surface: #222222;
-  --color-bg-hover: #2a2a2a;
+  --color-black: #000000;
+  --color-black-warm: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-light: #1a1a1a;
+  --color-gray-dark: #333333;
+  --color-gray: #666666;
+  --color-gray-light: #999999;
+  --color-white: #fafafa;
+  --color-white-muted: #cccccc;
+  --color-orange: #FF6B2C;
+  --color-orange-light: #FF8F5C;
+  --color-orange-dark: #E85A1E;
 
-  --color-border-subtle: #262626;
-  --color-border-default: #333333;
-  --color-border-strong: #444444;
-
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #666666;
-
-  --color-accent: #7047EB;
-  --color-accent-hover: #8060F0;
-  --color-cta: #FF7D52;
-  --color-cta-hover: #FF9470;
-  --color-info: #00ACFF;
-
-  /* Legacy aliases (keep for components that still reference these) */
-  --color-navy-950: #111111;
-  --color-navy-900: #191919;
-  --color-navy-800: #222222;
+  /* Legacy aliases */
+  --color-navy-950: #000000;
+  --color-navy-900: #0a0a0a;
+  --color-navy-800: #141414;
   --color-navy-700: #333333;
-  --color-navy-600: #444444;
-  --color-royal: #7047EB;
-  --color-royal-light: #8060F0;
-  --color-royal-dark: #5A35D4;
-}
+  --color-navy-600: #666666;
+  --color-royal: #FF6B2C;
+  --color-royal-light: #FF8F5C;
+  --color-royal-dark: #E85A1E;
 
-/* ============================================================
-   TYPOGRAPHY
-   ============================================================ */
+  --color-bg-base: #000000;
+  --color-bg-elevated: #0a0a0a;
+  --color-bg-surface: #141414;
+  --color-bg-hover: #1a1a1a;
+  --color-border-subtle: #1a1a1a;
+  --color-border-default: #333333;
+  --color-border-strong: #666666;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #999999;
+  --color-text-muted: #666666;
+  --color-accent: #FF6B2C;
+  --color-accent-hover: #FF8F5C;
+  --color-cta: #FF6B2C;
+  --color-cta-hover: #FF8F5C;
+  --color-info: #FF8F5C;
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-instrument), var(--font-inter), system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 /* ============================================================
-   SUBTLE ANIMATIONS (purposeful, not decorative)
+   ANIMATIONS
    ============================================================ */
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -95,139 +89,77 @@ h1, h2, h3, h4, h5, h6 {
   to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
+.animate-fade-up { animation: fade-up 0.7s ease-out forwards; }
+.animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+.animate-scale-in { animation: scale-in 0.5s ease-out forwards; }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes glow-soft {
-  0%, 100% { box-shadow: 0 0 20px rgba(112, 71, 235, 0.08); }
-  50% { box-shadow: 0 0 30px rgba(112, 71, 235, 0.15); }
-}
-
-.animate-fade-up { animation: fade-up 0.5s ease-out forwards; }
-.animate-fade-in { animation: fade-in 0.4s ease-out forwards; }
-.animate-scale-in { animation: scale-in 0.4s ease-out forwards; }
-
-.stagger-1 { animation-delay: 0.05s; opacity: 0; }
-.stagger-2 { animation-delay: 0.1s; opacity: 0; }
-.stagger-3 { animation-delay: 0.15s; opacity: 0; }
-.stagger-4 { animation-delay: 0.2s; opacity: 0; }
+.stagger-1 { animation-delay: 0.1s; opacity: 0; }
+.stagger-2 { animation-delay: 0.2s; opacity: 0; }
+.stagger-3 { animation-delay: 0.35s; opacity: 0; }
+.stagger-4 { animation-delay: 0.5s; opacity: 0; }
 
 /* ============================================================
    COMPONENTS
    ============================================================ */
 
-/* Primary CTA button */
 .btn-primary {
-  background: var(--accent-cta);
-  color: #fff;
-  font-weight: 600;
+  background: var(--orange);
+  color: #000;
+  font-weight: 700;
   transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .btn-primary:hover {
-  background: var(--accent-cta-hover);
-  box-shadow: 0 4px 16px rgba(255, 125, 82, 0.25);
+  background: var(--orange-light);
+  box-shadow: 0 0 30px var(--orange-glow);
 }
 
-/* Secondary/accent button */
-.btn-accent {
-  background: var(--accent-primary);
-  color: #fff;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-accent:hover {
-  background: var(--accent-primary-hover);
-  box-shadow: 0 4px 16px rgba(112, 71, 235, 0.25);
-}
-
-/* Ghost button */
 .btn-ghost {
   background: transparent;
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
+  border: 1px solid var(--gray-dark);
+  color: var(--gray-light);
   font-weight: 500;
   transition: all 0.2s ease;
 }
 
 .btn-ghost:hover {
-  border-color: var(--border-strong);
-  color: var(--text-primary);
-  background: var(--bg-hover);
+  border-color: var(--gray);
+  color: var(--white);
 }
 
-/* Card with subtle hover */
 .card-interactive {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  border: 1px solid var(--surface-light);
   border-radius: 12px;
   transition: all 0.2s ease;
 }
 
 .card-interactive:hover {
-  border-color: var(--border-default);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  border-color: var(--gray-dark);
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-info));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-cta {
-  background: linear-gradient(135deg, var(--accent-cta), #ffb347);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Accent dot indicator */
 .dot-active {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-primary);
-  box-shadow: 0 0 8px rgba(112, 71, 235, 0.4);
-}
-
-/* Subtle divider */
-.divider {
-  height: 1px;
-  background: var(--border-subtle);
+  background: var(--orange);
 }
 
 /* ============================================================
    SCROLLBAR
    ============================================================ */
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
-::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gray-dark); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
 
 /* ============================================================
    PRINT
    ============================================================ */
 
 @media print {
-  body {
-    background: white;
-    color: black;
-    font-family: "Georgia", "Times New Roman", serif;
-  }
+  body { background: white; color: black; font-family: "Georgia", serif; }
   .print\:hidden { display: none !important; }
   .print\:p-0 { padding: 0 !important; }
   .print\:rounded-none { border-radius: 0 !important; }

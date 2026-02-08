@@ -11,7 +11,7 @@ export default async function DashboardLayout({
   if (!session?.user) redirect("/login");
 
   return (
-    <div className="min-h-screen bg-navy-950 flex">
+    <div className="min-h-screen bg-black flex">
       <SidebarNav userName={session.user.name || "Usuario"} />
 
       {/* Main content */}
