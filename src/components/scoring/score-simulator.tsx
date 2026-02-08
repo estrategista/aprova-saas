@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Sparkles } from "lucide-react";
 
 interface Criterio {
   id: string;
@@ -23,7 +24,13 @@ interface BonusItem {
   ativo: boolean;
 }
 
-export function ScoreSimulator({ criterios, bonus: initialBonus }: { criterios: Criterio[]; bonus: BonusItem[] }) {
+interface ScoreSimulatorProps {
+  criterios: Criterio[];
+  bonus: BonusItem[];
+  predictedScore?: number | null;
+}
+
+export function ScoreSimulator({ criterios, bonus: initialBonus, predictedScore }: ScoreSimulatorProps) {
   const [scores, setScores] = useState<Record<string, number>>(() => {
     const initial: Record<string, number> = {};
     criterios.forEach((c) => { initial[c.id] = c.pontuacao ?? 0; });
@@ -46,7 +53,7 @@ export function ScoreSimulator({ criterios, bonus: initialBonus }: { criterios: 
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="rounded-xl border border-navy-700 bg-navy-900 p-4 text-center">
           <p className="text-xs text-slate-400 mb-1">Subtotal</p>
           <p className="text-3xl font-bold text-white">{subtotal}</p>
@@ -67,6 +74,17 @@ export function ScoreSimulator({ criterios, bonus: initialBonus }: { criterios: 
           <Badge variant={aprovado ? "success" : "destructive"} className="text-sm mt-2">{aprovado ? "Aprovado" : "Abaixo do corte"}</Badge>
           <p className="text-xs text-slate-500 mt-1">corte: 40pts</p>
         </div>
+        {predictedScore != null && (
+          <div className="rounded-xl border border-royal/30 bg-royal/5 p-4 text-center">
+            <p className="text-xs text-royal-light mb-1 flex items-center justify-center gap-1">
+              <Sparkles className="w-3 h-3" /> IA Predito
+            </p>
+            <p className={`text-3xl font-bold ${predictedScore >= 60 ? "text-royal-light" : predictedScore >= 40 ? "text-amber-400" : "text-red-400"}`}>
+              {predictedScore}
+            </p>
+            <p className="text-xs text-slate-500">baseado nos textos</p>
+          </div>
+        )}
       </div>
 
       <div className="rounded-xl border border-navy-700 bg-navy-900">
