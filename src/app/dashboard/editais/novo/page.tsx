@@ -147,15 +147,15 @@ export default function NovoEditalPage() {
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold text-white mb-2">Novo Edital</h1>
-      <p className="text-sm text-slate-400 mb-8">Preencha as informacoes do edital em {STEPS.length} passos</p>
+      <p className="text-sm text-neutral-400 mb-8">Preencha as informacoes do edital em {STEPS.length} passos</p>
 
       <div className="flex items-center gap-2 mb-8">
         {STEPS.map((s, i) => (
           <div key={s} className="flex items-center gap-2 flex-1">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${i <= step ? "bg-royal text-white" : "bg-navy-800 text-slate-500"}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${i <= step ? "bg-royal text-white" : "bg-navy-800 text-neutral-500"}`}>
               {i + 1}
             </div>
-            <span className={`text-xs hidden sm:inline ${i <= step ? "text-white" : "text-slate-500"}`}>{s}</span>
+            <span className={`text-xs hidden sm:inline ${i <= step ? "text-white" : "text-neutral-500"}`}>{s}</span>
             {i < STEPS.length - 1 && <div className="flex-1 h-px bg-navy-700" />}
           </div>
         ))}
@@ -166,9 +166,9 @@ export default function NovoEditalPage() {
           {step === 0 && (
             <div className="space-y-4">
               <div className="rounded-lg border border-dashed border-navy-600 p-6 text-center mb-6">
-                <Upload className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-                <p className="text-sm text-slate-400 mb-3">Tem o PDF do edital? Envie para preenchimento automatico com IA</p>
-                <label className="inline-flex items-center gap-2 bg-navy-700 text-slate-300 px-4 py-2 rounded-lg cursor-pointer hover:bg-navy-600 text-sm">
+                <Upload className="w-8 h-8 text-neutral-500 mx-auto mb-2" />
+                <p className="text-sm text-neutral-400 mb-3">Tem o PDF do edital? Envie para preenchimento automatico com IA</p>
+                <label className="inline-flex items-center gap-2 bg-navy-700 text-neutral-300 px-4 py-2 rounded-lg cursor-pointer hover:bg-navy-600 text-sm">
                   <Wand2 className="w-4 h-4" />
                   {uploadLoading ? "Processando..." : "Enviar PDF"}
                   <input type="file" accept=".pdf" className="hidden" onChange={handlePDFUpload} disabled={uploadLoading} />
@@ -184,26 +184,26 @@ export default function NovoEditalPage() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center gap-1 text-slate-300">
-                      <FileText className="w-3 h-3 text-slate-500" />
+                    <div className="flex items-center gap-1 text-neutral-300">
+                      <FileText className="w-3 h-3 text-neutral-500" />
                       {parseResult.campos?.length || 0} campos
                     </div>
-                    <div className="flex items-center gap-1 text-slate-300">
-                      <Target className="w-3 h-3 text-slate-500" />
+                    <div className="flex items-center gap-1 text-neutral-300">
+                      <Target className="w-3 h-3 text-neutral-500" />
                       {parseResult.criterios?.length || 0} criterios
                     </div>
-                    <div className="flex items-center gap-1 text-slate-300">
-                      <DollarSign className="w-3 h-3 text-slate-500" />
+                    <div className="flex items-center gap-1 text-neutral-300">
+                      <DollarSign className="w-3 h-3 text-neutral-500" />
                       {parseResult.orcamento_sugerido?.length || 0} itens orcamento
                     </div>
-                    <div className="flex items-center gap-1 text-slate-300">
-                      <Zap className="w-3 h-3 text-slate-500" />
+                    <div className="flex items-center gap-1 text-neutral-300">
+                      <Zap className="w-3 h-3 text-neutral-500" />
                       {parseResult.bonus?.length || 0} bonus
                     </div>
                   </div>
 
                   {parseResult.restricoes && parseResult.restricoes.length > 0 && (
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-neutral-400">
                       {parseResult.restricoes.length} restricao(oes) identificada(s)
                     </div>
                   )}
@@ -217,7 +217,7 @@ export default function NovoEditalPage() {
                     {creatingFromParse ? "Criando..." : "Criar Edital Completo do PDF"}
                   </Button>
 
-                  <p className="text-[10px] text-slate-500 text-center">
+                  <p className="text-[10px] text-neutral-500 text-center">
                     Ou continue preenchendo manualmente abaixo
                   </p>
                 </div>
@@ -272,7 +272,7 @@ export default function NovoEditalPage() {
                 <Label>Cotas (se aplicavel)</Label>
                 <div className="flex flex-wrap gap-2">
                   {["PCD", "Negro(a)", "Indigena", "LGBTQIA+", "Mulher", "Idoso"].map((cota) => (
-                    <button key={cota} type="button" onClick={() => toggleCota(cota)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${data.cotas.includes(cota) ? "bg-royal text-white" : "bg-navy-800 text-slate-400 hover:bg-navy-700"}`}>
+                    <button key={cota} type="button" onClick={() => toggleCota(cota)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${data.cotas.includes(cota) ? "bg-royal text-white" : "bg-navy-800 text-neutral-400 hover:bg-navy-700"}`}>
                       {cota}
                     </button>
                   ))}
@@ -284,13 +284,13 @@ export default function NovoEditalPage() {
           {step === 2 && (
             <div className="rounded-lg bg-navy-800/50 p-4">
               <h3 className="text-sm font-medium text-white mb-2">Campos de texto</h3>
-              <p className="text-xs text-slate-400 mb-4">Os campos padrao para editais culturais serao criados automaticamente.</p>
+              <p className="text-xs text-neutral-400 mb-4">Os campos padrao para editais culturais serao criados automaticamente.</p>
               <div className="space-y-2">
                 {["Objeto da Proposta", "Oportunidades Geradas", "Trajetoria Cultural", "Resultados e Metas", "Sustentabilidade", "Justificativa", "Emprego e Renda", "Valor Social"].map((campo, i) => (
                   <div key={campo} className="flex items-center gap-3 text-sm">
-                    <div className="w-6 h-6 rounded bg-navy-700 flex items-center justify-center text-xs text-slate-400">{i + 1}</div>
-                    <span className="text-slate-300">{campo}</span>
-                    <span className="text-xs text-slate-500 ml-auto">8.000 chars</span>
+                    <div className="w-6 h-6 rounded bg-navy-700 flex items-center justify-center text-xs text-neutral-400">{i + 1}</div>
+                    <span className="text-neutral-300">{campo}</span>
+                    <span className="text-xs text-neutral-500 ml-auto">8.000 chars</span>
                   </div>
                 ))}
               </div>
@@ -300,7 +300,7 @@ export default function NovoEditalPage() {
           {step === 3 && (
             <div className="rounded-lg bg-navy-800/50 p-4">
               <h3 className="text-sm font-medium text-white mb-2">Orcamento</h3>
-              <p className="text-xs text-slate-400">O orcamento sera configurado depois com a calculadora interativa. O valor total deve ser igual a {data.valor ? `R$ ${parseFloat(data.valor).toLocaleString("pt-BR")}` : "o valor do edital"}.</p>
+              <p className="text-xs text-neutral-400">O orcamento sera configurado depois com a calculadora interativa. O valor total deve ser igual a {data.valor ? `R$ ${parseFloat(data.valor).toLocaleString("pt-BR")}` : "o valor do edital"}.</p>
             </div>
           )}
 
@@ -315,13 +315,13 @@ export default function NovoEditalPage() {
                 ["Candidato", data.candidatoNome],
               ].map(([label, value]) => (
                 <div key={label} className="flex justify-between py-2 border-b border-navy-800">
-                  <span className="text-slate-400">{label}</span>
+                  <span className="text-neutral-400">{label}</span>
                   <span className="text-white">{value || "\u2014"}</span>
                 </div>
               ))}
               {data.cotas.length > 0 && (
                 <div className="flex justify-between py-2 border-b border-navy-800">
-                  <span className="text-slate-400">Cotas</span>
+                  <span className="text-neutral-400">Cotas</span>
                   <span className="text-white">{data.cotas.join(", ")}</span>
                 </div>
               )}

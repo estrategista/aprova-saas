@@ -70,7 +70,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-neutral-400" />
       </div>
     );
   }
@@ -121,7 +121,7 @@ export default function SettingsPage() {
               onChange={(e) => setForm((f) => ({ ...f, claudeApiKey: e.target.value }))}
               placeholder="sk-ant-..."
             />
-            <p className="text-xs text-slate-500">Sua chave API e encriptada e armazenada com seguranca. Obtenha em console.anthropic.com</p>
+            <p className="text-xs text-neutral-500">Sua chave API e encriptada e armazenada com seguranca. Obtenha em console.anthropic.com</p>
           </div>
         </div>
 

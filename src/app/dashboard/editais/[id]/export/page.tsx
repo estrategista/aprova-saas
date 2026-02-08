@@ -31,12 +31,12 @@ export default async function ExportPage({
       <div className="print:hidden mb-6">
         <Link
           href={`/dashboard/editais/${id}`}
-          className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white mb-2"
+          className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white mb-2"
         >
           <ArrowLeft className="w-4 h-4" /> Voltar ao edital
         </Link>
         <h1 className="text-xl font-bold text-white">Exportar Proposta</h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-neutral-400 mt-1">
           Revise, copie os textos ou imprima a proposta completa.
         </p>
       </div>

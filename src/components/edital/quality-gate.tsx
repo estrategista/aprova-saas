@@ -57,7 +57,7 @@ export function QualityGate({ edital }: { edital: any }) { // eslint-disable-lin
     <div className="space-y-6">
       <div className={`rounded-xl border p-6 text-center ${allPass ? "border-green-600/30 bg-green-600/5" : "border-navy-700 bg-navy-900"}`}>
         <div className={`text-4xl font-bold mb-2 ${allPass ? "text-green-400" : "text-amber-400"}`}>{passCount}/{checks.length}</div>
-        <p className="text-sm text-slate-400">{allPass ? "Tudo pronto para submissao!" : "Ainda ha itens a resolver antes de submeter"}</p>
+        <p className="text-sm text-neutral-400">{allPass ? "Tudo pronto para submissao!" : "Ainda ha itens a resolver antes de submeter"}</p>
         {allPass && <Badge variant="success" className="mt-3">Pronto para submeter</Badge>}
       </div>
 
@@ -70,8 +70,8 @@ export function QualityGate({ edital }: { edital: any }) { // eslint-disable-lin
                 <h4 className="text-sm font-medium text-white">{check.label}</h4>
                 <Badge variant={check.status === "pass" ? "success" : check.status === "warn" ? "warning" : "destructive"} className="text-xs">{check.status === "pass" ? "OK" : check.status === "warn" ? "Atencao" : "Falha"}</Badge>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">{check.description}</p>
-              <p className="text-xs text-slate-400 mt-1">{check.detail}</p>
+              <p className="text-xs text-neutral-500 mt-0.5">{check.description}</p>
+              <p className="text-xs text-neutral-400 mt-1">{check.detail}</p>
             </div>
           </div>
         ))}
@@ -79,7 +79,7 @@ export function QualityGate({ edital }: { edital: any }) { // eslint-disable-lin
 
       <div className="text-center">
         <Button size="lg" disabled={!allPass}>Exportar PDF da Proposta</Button>
-        {!allPass && <p className="text-xs text-slate-500 mt-2">Resolva todos os itens acima para exportar</p>}
+        {!allPass && <p className="text-xs text-neutral-500 mt-2">Resolva todos os itens acima para exportar</p>}
       </div>
     </div>
   );

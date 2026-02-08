@@ -102,7 +102,7 @@ export function TextEditor({ editalId, campos, orcamentoItems = [], valorTotal =
             const percent = Math.round((text.length / campo.maxChars) * 100);
             const fs = fieldScores[campo.id];
             return (
-              <button key={campo.id} onClick={() => setActiveCampo(campo.id)} className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${activeCampo === campo.id ? "bg-royal/20 text-white border border-royal/30" : "text-slate-400 hover:bg-navy-800 hover:text-white"}`}>
+              <button key={campo.id} onClick={() => setActiveCampo(campo.id)} className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${activeCampo === campo.id ? "bg-royal/20 text-white border border-royal/30" : "text-neutral-400 hover:bg-navy-800 hover:text-white"}`}>
                 <div className="flex items-center justify-between">
                   <span className="truncate">{campo.curto || campo.nome}</span>
                   <div className="flex items-center gap-1 ml-1">
@@ -136,10 +136,10 @@ export function TextEditor({ editalId, campos, orcamentoItems = [], valorTotal =
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-base font-semibold text-white">{campo.nome}</h3>
-                    {campo.criterioId && <span className="text-xs text-slate-500">Criterio: {campo.criterioId.toUpperCase()}</span>}
+                    {campo.criterioId && <span className="text-xs text-neutral-500">Criterio: {campo.criterioId.toUpperCase()}</span>}
                   </div>
                   <div className="flex items-center gap-2">
-                    {saving[campo.id] && <span className="flex items-center gap-1 text-xs text-slate-400"><Loader2 className="w-3 h-3 animate-spin" />Salvando...</span>}
+                    {saving[campo.id] && <span className="flex items-center gap-1 text-xs text-neutral-400"><Loader2 className="w-3 h-3 animate-spin" />Salvando...</span>}
                     {saved[campo.id] && <span className="flex items-center gap-1 text-xs text-green-400"><CheckCircle2 className="w-3 h-3" />Salvo</span>}
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export function TextEditor({ editalId, campos, orcamentoItems = [], valorTotal =
 
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
-                    <span className={charPercent > 95 ? "text-red-400" : charPercent > 70 ? "text-green-400" : "text-slate-400"}>
+                    <span className={charPercent > 95 ? "text-red-400" : charPercent > 70 ? "text-green-400" : "text-neutral-400"}>
                       {charCount.toLocaleString("pt-BR")} / {campo.maxChars.toLocaleString("pt-BR")} ({charPercent}%)
                     </span>
                     {textHasAccents && <span className="flex items-center gap-1 text-amber-400"><AlertTriangle className="w-3 h-3" />Acentos detectados</span>}

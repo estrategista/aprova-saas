@@ -47,11 +47,11 @@ export function EditalTabs({ edital }: EditalTabsProps) {
     <div>
       <div className="flex items-start justify-between mb-6">
         <div>
-          <Link href="/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white mb-2">
+          <Link href="/dashboard" className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white mb-2">
             <ArrowLeft className="w-4 h-4" /> Voltar
           </Link>
           <h1 className="text-xl font-bold text-white">{edital.nome}</h1>
-          {edital.orgao && <p className="text-sm text-slate-400 mt-1">{edital.orgao}</p>}
+          {edital.orgao && <p className="text-sm text-neutral-400 mt-1">{edital.orgao}</p>}
         </div>
         <div className="flex items-center gap-2">
           <Link href={`/dashboard/editais/${edital.id}/export`}>
@@ -69,7 +69,7 @@ export function EditalTabs({ edital }: EditalTabsProps) {
         {TABS.map((tab) => {
           const Icon = tab.icon;
           return (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${activeTab === tab.id ? "bg-royal text-white" : "text-slate-400 hover:text-white hover:bg-navy-800"}`}>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${activeTab === tab.id ? "bg-royal text-white" : "text-neutral-400 hover:text-white hover:bg-navy-800"}`}>
               <Icon className="w-4 h-4" /> {tab.label}
             </button>
           );

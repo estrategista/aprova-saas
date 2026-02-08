@@ -55,24 +55,24 @@ export function ScoreSimulator({ criterios, bonus: initialBonus, predictedScore 
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="rounded-xl border border-navy-700 bg-navy-900 p-4 text-center">
-          <p className="text-xs text-slate-400 mb-1">Subtotal</p>
+          <p className="text-xs text-neutral-400 mb-1">Subtotal</p>
           <p className="text-3xl font-bold text-white">{subtotal}</p>
-          <p className="text-xs text-slate-500">de {maxPossivel}</p>
+          <p className="text-xs text-neutral-500">de {maxPossivel}</p>
         </div>
         <div className="rounded-xl border border-navy-700 bg-navy-900 p-4 text-center">
-          <p className="text-xs text-slate-400 mb-1">Bonus</p>
-          <p className={`text-3xl font-bold ${bonusTotal > 0 ? "text-green-400" : "text-slate-600"}`}>+{bonusTotal}</p>
-          <p className="text-xs text-slate-500">{subtotal < 40 ? "requer 40pts" : "ativo"}</p>
+          <p className="text-xs text-neutral-400 mb-1">Bonus</p>
+          <p className={`text-3xl font-bold ${bonusTotal > 0 ? "text-green-400" : "text-neutral-600"}`}>+{bonusTotal}</p>
+          <p className="text-xs text-neutral-500">{subtotal < 40 ? "requer 40pts" : "ativo"}</p>
         </div>
         <div className="rounded-xl border border-navy-700 bg-navy-900 p-4 text-center">
-          <p className="text-xs text-slate-400 mb-1">Total</p>
+          <p className="text-xs text-neutral-400 mb-1">Total</p>
           <p className={`text-3xl font-bold ${aprovado ? "text-royal-light" : "text-red-400"}`}>{total}</p>
-          <p className="text-xs text-slate-500">pontos</p>
+          <p className="text-xs text-neutral-500">pontos</p>
         </div>
         <div className="rounded-xl border border-navy-700 bg-navy-900 p-4 text-center">
-          <p className="text-xs text-slate-400 mb-1">Status</p>
+          <p className="text-xs text-neutral-400 mb-1">Status</p>
           <Badge variant={aprovado ? "success" : "destructive"} className="text-sm mt-2">{aprovado ? "Aprovado" : "Abaixo do corte"}</Badge>
-          <p className="text-xs text-slate-500 mt-1">corte: 40pts</p>
+          <p className="text-xs text-neutral-500 mt-1">corte: 40pts</p>
         </div>
         {predictedScore != null && (
           <div className="rounded-xl border border-royal/30 bg-royal/5 p-4 text-center">
@@ -82,7 +82,7 @@ export function ScoreSimulator({ criterios, bonus: initialBonus, predictedScore 
             <p className={`text-3xl font-bold ${predictedScore >= 60 ? "text-royal-light" : predictedScore >= 40 ? "text-amber-400" : "text-red-400"}`}>
               {predictedScore}
             </p>
-            <p className="text-xs text-slate-500">baseado nos textos</p>
+            <p className="text-xs text-neutral-500">baseado nos textos</p>
           </div>
         )}
       </div>
@@ -99,10 +99,10 @@ export function ScoreSimulator({ criterios, bonus: initialBonus, predictedScore 
                 </div>
                 <span className="text-sm font-mono text-white">{scores[c.id] || 0}/{Math.max(...c.escala)}</span>
               </div>
-              {c.dica && <p className="text-xs text-slate-500 mb-2 ml-8">{c.dica}</p>}
+              {c.dica && <p className="text-xs text-neutral-500 mb-2 ml-8">{c.dica}</p>}
               <div className="flex items-center gap-1 ml-8">
                 {c.escala.map((nota) => (
-                  <button key={nota} onClick={() => setScores((prev) => ({ ...prev, [c.id]: nota }))} className={`px-3 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${scores[c.id] === nota ? (nota >= 7 ? "bg-green-600 text-white" : nota >= 5 ? "bg-royal text-white" : nota >= 3 ? "bg-amber-600 text-white" : "bg-red-600 text-white") : "bg-navy-800 text-slate-400 hover:bg-navy-700"}`}>
+                  <button key={nota} onClick={() => setScores((prev) => ({ ...prev, [c.id]: nota }))} className={`px-3 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${scores[c.id] === nota ? (nota >= 7 ? "bg-green-600 text-white" : nota >= 5 ? "bg-royal text-white" : nota >= 3 ? "bg-amber-600 text-white" : "bg-red-600 text-white") : "bg-navy-800 text-neutral-400 hover:bg-navy-700"}`}>
                     {nota}
                   </button>
                 ))}
@@ -127,7 +127,7 @@ export function ScoreSimulator({ criterios, bonus: initialBonus, predictedScore 
                   </button>
                   <div>
                     <span className="text-sm text-white">{b.nome}</span>
-                    {b.descricao && <p className="text-xs text-slate-500">{b.descricao}</p>}
+                    {b.descricao && <p className="text-xs text-neutral-500">{b.descricao}</p>}
                   </div>
                 </div>
                 <Badge variant={bonusAtivo[b.id] ? "success" : "outline"}>+{b.pontos}</Badge>

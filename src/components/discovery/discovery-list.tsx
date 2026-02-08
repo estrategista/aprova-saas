@@ -45,9 +45,9 @@ const TIPOS = ["Edital", "Festival", "Premio", "Oficina"];
 function MatchBadge({ score }: { score: number }) {
   const color =
     score >= 75 ? "bg-green-500/20 text-green-400 border-green-500/30" :
-    score >= 50 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" :
+    score >= 50 ? "bg-orange-500/20 text-orange-400 border-orange-500/30" :
     score >= 30 ? "bg-amber-500/20 text-amber-400 border-amber-500/30" :
-    "bg-slate-500/20 text-slate-400 border-slate-500/30";
+    "bg-neutral-500/20 text-neutral-400 border-neutral-500/30";
 
   return (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold border ${color}`}>
@@ -105,14 +105,14 @@ export function DiscoveryList() {
     <div>
       {/* Stats bar */}
       {stats && (
-        <div className="flex items-center gap-4 text-xs text-slate-400 mb-4 flex-wrap">
+        <div className="flex items-center gap-4 text-xs text-neutral-400 mb-4 flex-wrap">
           <span className="flex items-center gap-1">
             <Database className="w-3 h-3" />
             {stats.totalCorpus.toLocaleString("pt-BR")} editais no corpus
           </span>
           <span>{stats.openCount} abertos agora</span>
           {stats.sources.map((s) => (
-            <span key={s.source} className="text-slate-500">
+            <span key={s.source} className="text-neutral-500">
               {s.source.replace("mapacultural_", "").toUpperCase()}: {s.count}
             </span>
           ))}
@@ -122,7 +122,7 @@ export function DiscoveryList() {
       {/* Search + Filters */}
       <div className="flex gap-2 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -tranneutral-y-1/2 w-4 h-4 text-neutral-500" />
           <Input
             placeholder="Buscar editais por nome, area, palavra-chave..."
             value={search}
@@ -161,7 +161,7 @@ export function DiscoveryList() {
           {(estado || tipo) && (
             <button
               onClick={() => { setEstado(""); setTipo(""); }}
-              className="text-xs text-slate-400 hover:text-white cursor-pointer"
+              className="text-xs text-neutral-400 hover:text-white cursor-pointer"
             >
               Limpar filtros
             </button>
@@ -173,10 +173,10 @@ export function DiscoveryList() {
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <Loader2 className="w-6 h-6 animate-spin text-royal" />
-          <span className="ml-2 text-sm text-slate-400">Buscando editais...</span>
+          <span className="ml-2 text-sm text-neutral-400">Buscando editais...</span>
         </div>
       ) : editais.length === 0 ? (
-        <div className="text-center py-12 text-slate-400">
+        <div className="text-center py-12 text-neutral-400">
           <Database className="w-8 h-8 mx-auto mb-2 opacity-50" />
           <p className="text-sm">Nenhum edital encontrado com esses filtros.</p>
         </div>
@@ -195,10 +195,10 @@ export function DiscoveryList() {
                   </div>
 
                   {edital.descricao && (
-                    <p className="text-xs text-slate-400 line-clamp-2 mb-2">{edital.descricao}</p>
+                    <p className="text-xs text-neutral-400 line-clamp-2 mb-2">{edital.descricao}</p>
                   )}
 
-                  <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
+                  <div className="flex items-center gap-3 text-xs text-neutral-500 flex-wrap">
                     {edital.estado && (
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" />{edital.estado}

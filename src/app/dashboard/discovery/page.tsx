@@ -13,7 +13,7 @@ export default async function DiscoveryPage() {
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white mb-2"
+          className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white mb-2"
         >
           <ArrowLeft className="w-4 h-4" /> Dashboard
         </Link>
@@ -21,7 +21,7 @@ export default async function DiscoveryPage() {
           <Radar className="w-6 h-6 text-royal-light" />
           <div>
             <h1 className="text-xl font-bold text-white">Discovery</h1>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-neutral-400">
               Editais abertos que combinam com seu perfil, ranqueados por relevancia.
             </p>
           </div>

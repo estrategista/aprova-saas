@@ -76,7 +76,7 @@ export function RiskDashboard({ edital }: RiskDashboardProps) {
           Dashboard de Riscos
         </h3>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-400">Score Predito:</span>
+          <span className="text-xs text-neutral-400">Score Predito:</span>
           <Badge variant={predictedScore >= 60 ? "success" : predictedScore >= 40 ? "warning" : "destructive"}>
             {predictedScore}/100
           </Badge>

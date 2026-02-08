@@ -19,17 +19,17 @@ export function LiveScoreHeader({ totalScore, riskLevel }: LiveScoreHeaderProps)
   const RiskIcon = risk.icon;
   const pct = Math.min(totalScore, 100);
   const scoreColor =
-    totalScore >= 75 ? "text-green-400" : totalScore >= 60 ? "text-blue-400" : totalScore >= 40 ? "text-amber-400" : "text-red-400";
+    totalScore >= 75 ? "text-green-400" : totalScore >= 60 ? "text-orange-400" : totalScore >= 40 ? "text-amber-400" : "text-red-400";
   const barColor =
-    totalScore >= 75 ? "bg-green-500" : totalScore >= 60 ? "bg-blue-500" : totalScore >= 40 ? "bg-amber-500" : "bg-red-500";
+    totalScore >= 75 ? "bg-green-500" : totalScore >= 60 ? "bg-orange-500" : totalScore >= 40 ? "bg-amber-500" : "bg-red-500";
 
   return (
     <div className="flex items-center gap-4 bg-navy-900 border border-navy-700 rounded-lg px-4 py-2.5 mb-4">
       <div className="flex items-center gap-2">
-        <Target className="w-4 h-4 text-slate-400" />
-        <span className="text-xs text-slate-400">Score Predito</span>
+        <Target className="w-4 h-4 text-neutral-400" />
+        <span className="text-xs text-neutral-400">Score Predito</span>
         <span className={`text-lg font-bold ${scoreColor}`}>{totalScore}</span>
-        <span className="text-xs text-slate-500">/100</span>
+        <span className="text-xs text-neutral-500">/100</span>
       </div>
 
       <div className="flex-1 max-w-48 hidden sm:block">

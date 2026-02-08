@@ -66,18 +66,18 @@ export function BudgetTable({ editalId, items: initialItems, valorTotal }: Budge
       <div className="rounded-xl border border-navy-700 bg-navy-900 p-5">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-sm text-slate-400">Orcamento Total</p>
+            <p className="text-sm text-neutral-400">Orcamento Total</p>
             <p className="text-2xl font-bold text-white">{fmt(valorTotal)}</p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-slate-400">Saldo</p>
+            <p className="text-sm text-neutral-400">Saldo</p>
             <p className={`text-2xl font-bold ${Math.abs(saldo) < 0.01 ? "text-green-400" : saldo > 0 ? "text-amber-400" : "text-red-400"}`}>{fmt(saldo)}</p>
           </div>
         </div>
         <div className="h-3 bg-navy-800 rounded-full overflow-hidden">
           <div className={`h-full rounded-full transition-all ${percentUsado > 100 ? "bg-red-500" : percentUsado >= 99.9 ? "bg-green-500" : "bg-royal"}`} style={{ width: `${Math.min(percentUsado, 100)}%` }} />
         </div>
-        <div className="flex justify-between text-xs text-slate-500 mt-1">
+        <div className="flex justify-between text-xs text-neutral-500 mt-1">
           <span>{fmt(totalGasto)} usado</span>
           <span>{percentUsado.toFixed(1)}%</span>
         </div>
@@ -87,9 +87,9 @@ export function BudgetTable({ editalId, items: initialItems, valorTotal }: Budge
         <table className="w-full">
           <thead>
             <tr className="border-b border-navy-700 text-left">
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Item</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase text-right">Valor</th>
-              <th className="px-4 py-3 text-xs font-medium text-slate-400 uppercase text-right w-24">Acoes</th>
+              <th className="px-4 py-3 text-xs font-medium text-neutral-400 uppercase">Item</th>
+              <th className="px-4 py-3 text-xs font-medium text-neutral-400 uppercase text-right">Valor</th>
+              <th className="px-4 py-3 text-xs font-medium text-neutral-400 uppercase text-right w-24">Acoes</th>
             </tr>
           </thead>
           <tbody>
@@ -102,18 +102,18 @@ export function BudgetTable({ editalId, items: initialItems, valorTotal }: Budge
                     <td className="px-4 py-2 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={saveEdit} className="p-1 text-green-400 hover:text-green-300 cursor-pointer"><Check className="w-4 h-4" /></button>
-                        <button onClick={() => setEditingId(null)} className="p-1 text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
+                        <button onClick={() => setEditingId(null)} className="p-1 text-neutral-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </>
                 ) : (
                   <>
-                    <td className="px-4 py-3"><p className="text-sm text-white">{item.nome}</p>{item.descricao && <p className="text-xs text-slate-500">{item.descricao}</p>}</td>
+                    <td className="px-4 py-3"><p className="text-sm text-white">{item.nome}</p>{item.descricao && <p className="text-xs text-neutral-500">{item.descricao}</p>}</td>
                     <td className="px-4 py-3 text-sm text-white text-right font-mono">{fmt(item.valor)}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
-                        <button onClick={() => startEdit(item)} className="p-1 text-slate-400 hover:text-white cursor-pointer"><Edit2 className="w-3.5 h-3.5" /></button>
-                        <button onClick={() => deleteItem(item.id)} className="p-1 text-slate-400 hover:text-red-400 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => startEdit(item)} className="p-1 text-neutral-400 hover:text-white cursor-pointer"><Edit2 className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => deleteItem(item.id)} className="p-1 text-neutral-400 hover:text-red-400 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </td>
                   </>

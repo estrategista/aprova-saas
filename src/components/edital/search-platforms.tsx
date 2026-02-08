@@ -7,13 +7,13 @@ const PLATFORMS = [
     nome: "Mapa Cultural PE",
     url: "https://www.mapacultural.pe.gov.br",
     desc: "Plataforma oficial de editais culturais de Pernambuco",
-    cor: "bg-blue-600/20 border-blue-600/30",
+    cor: "bg-orange-600/20 border-orange-600/30",
   },
   {
     nome: "Prosas",
     url: "https://prosas.com.br",
     desc: "Maior plataforma de editais e chamadas publicas do Brasil",
-    cor: "bg-purple-600/20 border-purple-600/30",
+    cor: "bg-orange-500/20 border-orange-500/30",
   },
   {
     nome: "Gov.br Cultura",
@@ -43,13 +43,13 @@ const PLATFORMS = [
     nome: "Mapa Cultural Brasil",
     url: "https://mapas.cultura.gov.br",
     desc: "Sistema Nacional de Informacoes e Indicadores Culturais",
-    cor: "bg-teal-600/20 border-teal-600/30",
+    cor: "bg-amber-600/20 border-amber-600/30",
   },
   {
     nome: "BNB/BNDES",
     url: "https://www.bnb.gov.br",
     desc: "Linhas de credito para economia criativa no Nordeste",
-    cor: "bg-indigo-600/20 border-indigo-600/30",
+    cor: "bg-orange-700/20 border-orange-700/30",
   },
 ];
 
@@ -58,7 +58,7 @@ export function SearchPlatforms() {
     <div className="space-y-4">
       <div>
         <h3 className="text-sm font-medium text-white mb-1">Plataformas de Editais</h3>
-        <p className="text-xs text-slate-400">Busque novos editais e oportunidades culturais</p>
+        <p className="text-xs text-neutral-400">Busque novos editais e oportunidades culturais</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -73,9 +73,9 @@ export function SearchPlatforms() {
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-medium text-white">{p.nome}</h4>
-                <p className="text-xs text-slate-400 mt-1">{p.desc}</p>
+                <p className="text-xs text-neutral-400 mt-1">{p.desc}</p>
               </div>
-              <ExternalLink className="w-4 h-4 text-slate-500 shrink-0 ml-2" />
+              <ExternalLink className="w-4 h-4 text-neutral-500 shrink-0 ml-2" />
             </div>
           </a>
         ))}
