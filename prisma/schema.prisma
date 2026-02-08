@@ -132,3 +132,46 @@ model TimelineDay {
 
   @@index([editalId])
 }
+
+// ============================================================
+// CORPUS DE EDITAIS PÚBLICOS (Scraping + Discovery Engine)
+// ============================================================
+
+model EditalPublico {
+  id               String    @id @default(cuid())
+  sourceId         String
+  source           String    // "mapacultural_pe", "mapacultural_sp", "prosas", etc.
+  nome             String
+  orgao            String?
+  descricao        String?   @db.Text
+  descricaoLonga   String?   @db.Text
+  tipo             String?   // "Edital", "Festival", "Premio", "Oficina"
+  valor            Float?
+  vagas            Int?
+  inscricaoDe      DateTime?
+  inscricaoAte     DateTime?
+  url              String?
+  estado           String?
+  cidade           String?
+  areas            String[]  @default([])
+  categorias       String[]  @default([])
+  cotasDisponiveis String[]  @default([])
+  keywords         String[]  @default([])
+  statusEdital     String    @default("aberto") // aberto, encerrado, resultado
+  rawData          Json?
+  parsedData       Json?     // Structured parse from Claude (campos, criterios, bonus)
+  matchScore       Float?    // Cached relevance score for current user
+  scrapedAt        DateTime  @default(now())
+  parsedAt         DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@unique([source, sourceId])
+  @@index([estado])
+  @@index([statusEdital])
+  @@index([inscricaoAte])
+  @@index([tipo])
+}
+
+// pgvector: In production (Railway), run scripts/setup-pgvector.ts to create
+// edital_embeddings table with vector(384) column + HNSW index

@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plus, LayoutDashboard, LogOut, Settings, Menu, X } from "lucide-react";
+import { Plus, LayoutDashboard, LogOut, Settings, Menu, X, Radar } from "lucide-react";
 import { useState } from "react";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/dashboard/editais/novo", label: "Novo Edital", icon: Plus, exact: true },
+  { href: "/dashboard/discovery", label: "Discovery", icon: Radar, exact: true },
   { href: "/dashboard/settings", label: "Configuracoes", icon: Settings, exact: true },
 ];
 

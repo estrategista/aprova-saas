@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { ArrowLeft, FileText, Calculator, Target, Calendar, Shield, AlertTriangle, Search } from "lucide-react";
+import { ArrowLeft, FileText, Calculator, Target, Calendar, Shield, AlertTriangle, Search, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TextEditor } from "@/components/editor/text-editor";
 import { BudgetTable } from "@/components/budget/budget-table";
@@ -12,6 +13,7 @@ import { QualityGate } from "@/components/edital/quality-gate";
 import { RiskDashboard } from "@/components/edital/risk-dashboard";
 import { SearchPlatforms } from "@/components/edital/search-platforms";
 import { predictTotalScore, analyzeBudget } from "@/lib/ai-engine";
+import { CopilotChat } from "@/components/chat/copilot-chat";
 
 interface EditalTabsProps {
   edital: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -52,6 +54,11 @@ export function EditalTabs({ edital }: EditalTabsProps) {
           {edital.orgao && <p className="text-sm text-slate-400 mt-1">{edital.orgao}</p>}
         </div>
         <div className="flex items-center gap-2">
+          <Link href={`/dashboard/editais/${edital.id}/export`}>
+            <Button size="sm" variant="outline">
+              <Download className="w-4 h-4" /> Exportar
+            </Button>
+          </Link>
           <Badge variant={edital.status === "draft" ? "secondary" : edital.status === "active" ? "default" : "success"}>
             {edital.status === "draft" ? "Rascunho" : edital.status === "active" ? "Ativo" : edital.status}
           </Badge>
@@ -69,7 +76,7 @@ export function EditalTabs({ edital }: EditalTabsProps) {
         })}
       </div>
 
-      {activeTab === "textos" && <TextEditor editalId={edital.id} campos={edital.campos} />}
+      {activeTab === "textos" && <TextEditor editalId={edital.id} campos={edital.campos} orcamentoItems={(edital.orcamento || []).map((i: any) => ({ nome: i.nome, valor: i.valor }))} valorTotal={edital.valor} />}
       {activeTab === "orcamento" && <BudgetTable editalId={edital.id} items={edital.orcamento} valorTotal={edital.valor} />}
       {activeTab === "scoring" && <ScoreSimulator criterios={edital.criterios} bonus={edital.bonus} predictedScore={predictedScore} />}
       {activeTab === "timeline" && <TimelineView editalId={edital.id} days={edital.timeline} prazo={edital.prazo} />}
@@ -83,6 +90,8 @@ export function EditalTabs({ edital }: EditalTabsProps) {
         }} />
       )}
       {activeTab === "busca" && <SearchPlatforms />}
+
+      <CopilotChat editalId={edital.id} />
     </div>
   );
 }

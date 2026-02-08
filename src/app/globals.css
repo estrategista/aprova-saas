@@ -27,3 +27,22 @@ body {
   --color-royal-light: #60a5fa;
   --color-royal-dark: #1d4ed8;
 }
+
+@media print {
+  body {
+    background: white;
+    color: black;
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .print\:hidden { display: none !important; }
+  .print\:p-0 { padding: 0 !important; }
+  .print\:rounded-none { border-radius: 0 !important; }
+  .print\:shadow-none { box-shadow: none !important; }
+  .print\:break-inside-avoid { break-inside: avoid; }
+  .print\:break-before-page { break-before: page; }
+  .print\:text-gray-600 { color: #4b5563 !important; }
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+}

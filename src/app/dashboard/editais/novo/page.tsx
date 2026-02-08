@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft, ChevronRight, Upload, Wand2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Upload, Wand2, Zap, FileText, Target, DollarSign, CheckCircle2 } from "lucide-react";
 
 interface WizardData {
   nome: string;
@@ -22,12 +22,24 @@ interface WizardData {
   cotas: string[];
 }
 
+interface ParseResult {
+  meta?: { nome?: string; orgao?: string; valor?: number; prazo?: string; plataforma?: string };
+  campos?: { nome: string; curto?: string; maxChars?: number; placeholder?: string }[];
+  criterios?: { codigo: string; nome: string; dica?: string; peso?: number; escala?: number[] }[];
+  bonus?: { nome: string; pontos: number; descricao?: string }[];
+  restricoes?: string[];
+  orcamento_sugerido?: { nome: string; valor: number }[];
+  timeline?: { dia: number; titulo: string; emoji?: string; tasks?: string[] }[];
+}
+
 const STEPS = ["Edital", "Candidato", "Campos", "Orcamento", "Revisao"];
 
 export default function NovoEditalPage() {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [parseResult, setParseResult] = useState<ParseResult | null>(null);
+  const [creatingFromParse, setCreatingFromParse] = useState(false);
   const [data, setData] = useState<WizardData>({
     nome: "", orgao: "", tipo: "cultural", valor: "", prazo: "", plataforma: "",
     candidatoNome: "", candidatoCpf: "", candidatoCidade: "", candidatoArea: "", cotas: [],
@@ -42,26 +54,65 @@ export default function NovoEditalPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadLoading(true);
+    setParseResult(null);
     try {
       const formData = new FormData();
       formData.append("file", file);
       const res = await fetch("/api/ai/parse-pdf", { method: "POST", body: formData });
       if (!res.ok) throw new Error("Erro ao processar PDF");
-      const config = await res.json();
+      const config: ParseResult = await res.json();
+      setParseResult(config);
       if (config.meta) {
         setData((prev) => ({
           ...prev,
-          nome: config.meta.nome || prev.nome,
-          orgao: config.meta.orgao || prev.orgao,
-          valor: config.meta.valor?.toString() || prev.valor,
-          prazo: config.meta.prazo || prev.prazo,
-          plataforma: config.meta.plataforma || prev.plataforma,
+          nome: config.meta!.nome || prev.nome,
+          orgao: config.meta!.orgao || prev.orgao,
+          valor: config.meta!.valor?.toString() || prev.valor,
+          prazo: config.meta!.prazo || prev.prazo,
+          plataforma: config.meta!.plataforma || prev.plataforma,
         }));
       }
     } catch (err) {
       console.error(err);
     } finally {
       setUploadLoading(false);
+    }
+  }
+
+  async function handleCreateFromParse() {
+    if (!parseResult) return;
+    setCreatingFromParse(true);
+    try {
+      const payload = {
+        ...parseResult,
+        meta: {
+          ...parseResult.meta,
+          nome: data.nome || parseResult.meta?.nome || "Edital sem nome",
+          orgao: data.orgao || parseResult.meta?.orgao,
+          valor: parseFloat(data.valor) || parseResult.meta?.valor || 0,
+          prazo: data.prazo || parseResult.meta?.prazo,
+          plataforma: data.plataforma || parseResult.meta?.plataforma,
+        },
+        candidato: data.candidatoNome ? {
+          nome: data.candidatoNome,
+          cidade: data.candidatoCidade || undefined,
+          area: data.candidatoArea || undefined,
+          cotas: data.cotas.length > 0 ? data.cotas : undefined,
+        } : undefined,
+      };
+
+      const res = await fetch("/api/editais/create-from-parse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Erro ao criar edital");
+      const edital = await res.json();
+      router.push(`/dashboard/editais/${edital.id}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setCreatingFromParse(false);
     }
   }
 
@@ -123,6 +174,55 @@ export default function NovoEditalPage() {
                   <input type="file" accept=".pdf" className="hidden" onChange={handlePDFUpload} disabled={uploadLoading} />
                 </label>
               </div>
+
+              {/* Parse Preview */}
+              {parseResult && (
+                <div className="rounded-lg bg-green-500/10 border border-green-500/30 p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                    <span className="text-sm font-semibold text-green-400">PDF analisado com sucesso!</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-1 text-slate-300">
+                      <FileText className="w-3 h-3 text-slate-500" />
+                      {parseResult.campos?.length || 0} campos
+                    </div>
+                    <div className="flex items-center gap-1 text-slate-300">
+                      <Target className="w-3 h-3 text-slate-500" />
+                      {parseResult.criterios?.length || 0} criterios
+                    </div>
+                    <div className="flex items-center gap-1 text-slate-300">
+                      <DollarSign className="w-3 h-3 text-slate-500" />
+                      {parseResult.orcamento_sugerido?.length || 0} itens orcamento
+                    </div>
+                    <div className="flex items-center gap-1 text-slate-300">
+                      <Zap className="w-3 h-3 text-slate-500" />
+                      {parseResult.bonus?.length || 0} bonus
+                    </div>
+                  </div>
+
+                  {parseResult.restricoes && parseResult.restricoes.length > 0 && (
+                    <div className="text-xs text-slate-400">
+                      {parseResult.restricoes.length} restricao(oes) identificada(s)
+                    </div>
+                  )}
+
+                  <Button
+                    onClick={handleCreateFromParse}
+                    disabled={creatingFromParse}
+                    className="w-full bg-green-600 hover:bg-green-700"
+                  >
+                    <Zap className="w-4 h-4" />
+                    {creatingFromParse ? "Criando..." : "Criar Edital Completo do PDF"}
+                  </Button>
+
+                  <p className="text-[10px] text-slate-500 text-center">
+                    Ou continue preenchendo manualmente abaixo
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <Label>Nome do edital *</Label>
                 <Input placeholder="Ex: Edital 003/2026 - Lei Aldir Blanc PE" value={data.nome} onChange={(e) => updateField("nome", e.target.value)} />
@@ -216,7 +316,7 @@ export default function NovoEditalPage() {
               ].map(([label, value]) => (
                 <div key={label} className="flex justify-between py-2 border-b border-navy-800">
                   <span className="text-slate-400">{label}</span>
-                  <span className="text-white">{value || "—"}</span>
+                  <span className="text-white">{value || "\u2014"}</span>
                 </div>
               ))}
               {data.cotas.length > 0 && (
