@@ -1,65 +1,87 @@
-import Image from "next/image";
+import Link from "next/link";
+import { FileText, Brain, Calculator, Target, Shield, Download } from "lucide-react";
 
-export default function Home() {
+const features = [
+  { icon: Brain, title: "IA Integrada", desc: "Analise e geracao de textos com Claude AI para maximizar sua pontuacao" },
+  { icon: FileText, title: "Editor Inteligente", desc: "8 campos com auto-save, detector de acentos e contador de caracteres" },
+  { icon: Calculator, title: "Orcamento Automatico", desc: "Calculadora orcamentaria com balanco em tempo real e cotacoes" },
+  { icon: Target, title: "Simulador de Nota", desc: "Simule sua pontuacao antes de submeter e identifique pontos fracos" },
+  { icon: Shield, title: "Quality Gate", desc: "7 verificacoes automaticas pre-submissao para garantir conformidade" },
+  { icon: Download, title: "Export PDF", desc: "Exporte sua proposta completa em PDF profissional para impressao" },
+];
+
+export default function LandingPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-navy-950">
+      <header className="border-b border-navy-800">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-royal flex items-center justify-center text-white font-bold text-sm">A</div>
+            <span className="text-xl font-bold text-white">Aprova.ai</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link href="/login" className="text-sm text-slate-300 hover:text-white transition-colors">
+              Entrar
+            </Link>
+            <Link href="/register" className="text-sm bg-royal text-white px-4 py-2 rounded-lg hover:bg-royal-dark transition-colors">
+              Criar Conta
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <section className="max-w-6xl mx-auto px-4 pt-24 pb-16 text-center">
+        <div className="inline-flex items-center gap-2 bg-royal/10 border border-royal/30 rounded-full px-4 py-1.5 mb-6">
+          <span className="text-xs text-royal-light font-medium">Beta - Editais Culturais BR</span>
+        </div>
+        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          Aprovacao Inteligente<br />
+          <span className="text-royal-light">de Editais Culturais</span>
+        </h1>
+        <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10">
+          Plataforma com IA para produtores culturais brasileiros. Escreva propostas melhores,
+          simule pontuacoes e aumente suas chances de aprovacao.
+        </p>
+        <div className="flex items-center justify-center gap-4">
+          <Link href="/register" className="bg-royal text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-royal-dark transition-colors">
+            Comecar Gratis
+          </Link>
+          <Link href="/login" className="border border-navy-600 text-slate-300 px-8 py-3 rounded-lg text-lg font-medium hover:bg-navy-800 transition-colors">
+            Ja tenho conta
+          </Link>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <h2 className="text-2xl font-bold text-white text-center mb-12">Tudo que voce precisa para ser aprovado</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((f) => (
+            <div key={f.title} className="rounded-xl border border-navy-700 bg-navy-900 p-6 hover:border-royal/50 transition-colors">
+              <f.icon className="w-10 h-10 text-royal-light mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">{f.title}</h3>
+              <p className="text-sm text-slate-400">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <div className="rounded-2xl bg-gradient-to-r from-royal/20 to-royal-dark/20 border border-royal/30 p-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Pronto para aumentar suas chances?</h2>
+          <p className="text-slate-400 mb-8 max-w-lg mx-auto">
+            Crie sua conta gratis e comece a trabalhar no seu proximo edital agora mesmo.
           </p>
+          <Link href="/register" className="inline-block bg-royal text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-royal-dark transition-colors">
+            Criar Conta Gratis
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <footer className="border-t border-navy-800 py-8">
+        <div className="max-w-6xl mx-auto px-4 text-center text-sm text-slate-500">
+          Aprova.ai - Aprovacao Inteligente de Editais Culturais
         </div>
-      </main>
+      </footer>
     </div>
   );
 }

@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  cpf          String?
+  cidade       String?
+  area         String?
+  plan         String   @default("free")
+  claudeApiKey String?
+  editais      Edital[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Edital {
+  id         String          @id @default(cuid())
+  userId     String
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nome       String
+  orgao      String?
+  tipo       String          @default("cultural")
+  valor      Float
+  valorExato Boolean         @default(true)
+  prazo      DateTime?
+  plataforma String?
+  status     String          @default("draft")
+  configJson Json?
+  candidato  Candidato?
+  campos     Campo[]
+  criterios  Criterio[]
+  orcamento  OrcamentoItem[]
+  timeline   TimelineDay[]
+  bonus      BonusItem[]
+  restricoes String[]        @default([])
+  faq        Json?           @default("[]")
+  contatos   Json?           @default("[]")
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@index([userId])
+}
+
+model Candidato {
+  id       String   @id @default(cuid())
+  editalId String   @unique
+  edital   Edital   @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  nome     String
+  cpf      String?
+  cidade   String?
+  area     String?
+  empresa  String?
+  cotas    String[] @default([])
+}
+
+model Campo {
+  id          String   @id @default(cuid())
+  editalId    String
+  edital      Edital   @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  ordem       Int
+  criterioId  String?
+  nome        String
+  curto       String?
+  placeholder String?
+  maxChars    Int      @default(8000)
+  template    String?  @db.Text
+  conteudo    String?  @db.Text
+  updatedAt   DateTime @updatedAt
+
+  @@index([editalId])
+}
+
+model Criterio {
+  id        String @id @default(cuid())
+  editalId  String
+  edital    Edital @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  codigo    String
+  nome      String
+  curto     String?
+  dica      String? @db.Text
+  peso      Int     @default(10)
+  escala    Int[]   @default([0, 3, 5, 7, 10])
+  pontuacao Int?
+
+  @@index([editalId])
+}
+
+model BonusItem {
+  id        String  @id @default(cuid())
+  editalId  String
+  edital    Edital  @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  nome      String
+  pontos    Int
+  destaque  Boolean @default(false)
+  descricao String?
+  ativo     Boolean @default(false)
+
+  @@index([editalId])
+}
+
+model OrcamentoItem {
+  id        String @id @default(cuid())
+  editalId  String
+  edital    Edital @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  nome      String
+  valor     Float
+  descricao String?
+  cotacoes  Json?  @default("[]")
+
+  @@index([editalId])
+}
+
+model TimelineDay {
+  id       String @id @default(cuid())
+  editalId String
+  edital   Edital @relation(fields: [editalId], references: [id], onDelete: Cascade)
+  dia      Int
+  titulo   String
+  emoji    String?
+  horas    Int?
+  tasks    Json   @default("[]")
+
+  @@index([editalId])
+}
